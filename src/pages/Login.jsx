@@ -3,11 +3,17 @@ import { Footer } from "../components/Footer";
 import { TopNav } from "../components/TopNav";
 import { CustomInpute } from "../components/CustomInpute";
 import { userLogin } from "../helpers/axiosHelper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ setLoggedInUser }) => {
   const navigate = useNavigate();
+
+  const sendTo = location?.state?.from?.location?.pathname || "/dashboard";
+
+  useEffect(() => {
+    user?._id && navigate(sendTo);
+  }, [user?._id, navigate, sendTo]);
 
   const [user, setUser] = useState({});
   const [resp, setResp] = useState({});
