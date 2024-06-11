@@ -26,5 +26,9 @@ export const Stars = ({ stars = 0 }) => {
     }
   }
 
-  return <div className="fs-3">{showStars} </div>;
+  return (
+    <div className="fs-3">
+      {showStars}({stars.toFixed(1)}/{totalReviews})
+    </div>
+  );
 };

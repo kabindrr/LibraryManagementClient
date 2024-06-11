@@ -11,3 +11,21 @@ export const postNewReview = async (obj) => {
   };
   return apiProcesser(axiosObj);
 };
+export const fetchReviews = async (isPrivate) => {
+  const axiosObj = {
+    method: "get",
+    url: isPrivate ? reviewEP + "/all" : reviewEP,
+
+    isPrivate,
+  };
+  return apiProcesser(axiosObj);
+};
+export const updateReviewAction = async (obj) => {
+  const axiosObj = {
+    method: "post",
+    url: reviewEP,
+    data: obj,
+    isPrivate: true,
+  };
+  return apiProcesser(axiosObj);
+};

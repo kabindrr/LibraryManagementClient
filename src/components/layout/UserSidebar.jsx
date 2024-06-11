@@ -8,6 +8,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { IoLibrary } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
+import { MdReviews } from "react-icons/md";
 
 const sideLinks = [
   {
@@ -26,6 +27,12 @@ const sideLinks = [
     icon: <FaListUl />,
     title: "All Burrows",
     to: "/admin/all-burrows",
+    isAdminOnly: true,
+  },
+  {
+    icon: <MdReviews />,
+    title: "All Reviews",
+    to: "/admin/reviews",
     isAdminOnly: true,
   },
   {
