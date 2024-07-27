@@ -1,32 +1,38 @@
 import React, { useEffect } from "react";
+import { UserLayout } from "../../components/layout/UserLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { getReviews } from "../../features/reviews/reviewAction";
+import {
+  getReviews,
+  updateReviewAction,
+} from "../../features/reviews/reviewAction";
+import { Button, Table } from "react-bootstrap";
+import { Stars } from "../../components/stars/Stars";
+import { Link } from "react-router-dom";
 import { Form } from "react-bootstrap";
-import { updateReviewAction } from "../../features/reviews/reviewAxios";
 
-export const Reviews = () => {
-  const Reviews = () => {
-    const { allReviews } = useSelector((state) => state.reviewInfo);
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(getReviews(isPrivate));
-    });
+const isPrivate = true;
+const Reviews = () => {
+  const { allReviews } = useSelector((state) => state.reviewInfo);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getReviews(isPrivate));
+  }, [dispatch]);
 
-    const handleOnSwitchChange = (e) => {
-      const { checked, value } = e.target;
-      if (window.confirm("Are you sure you want to change the status")) {
-        dispatch(
-          updateReviewAction({
-            status: checked ? "active" : "inactive",
+  const handleOnSwitchChange = (e) => {
+    const { checked, value } = e.target;
 
-            _id: value,
-          })
-        );
-      }
-    };
+    if (window.confirm("Are you sure, you want to change the status?")) {
+      console.log(checked, value);
+      dispatch(
+        updateReviewAction({
+          status: checked ? "active" : "inactive",
+          _id: value,
+        })
+      );
+    }
   };
   return (
-    <UserLayout pageTitle="All reviews list">
+    <UserLayout pageTitle="All Reviews List">
       <div>
         <div className="d-flex justify-content-between mb-4">
           <div>30 Reviews found!</div>
@@ -37,7 +43,7 @@ export const Reviews = () => {
             <tr>
               <th>#</th>
               <th>Status</th>
-              <th>Thumbnail</th>
+              <th> Thumbnail</th>
               <th>Student Name</th>
               <th>Review</th>
               <th>Delete</th>
@@ -52,34 +58,25 @@ export const Reviews = () => {
                     type="switch"
                     checked={item.status === "active"}
                     onChange={handleOnSwitchChange}
+                    value={item._id}
                   />
+                  {item.status}
                 </td>
-                <td>{item.status}</td>
                 <td>
-                  <Link to={"/book/" + item._id} target="_blank" />
-                </td>
-
-                <td>
-                  <img src={item.thumbnail} alt="" width={"70px"} />
+                  <Link to={"/book/" + item.bookId} target="_blank">
+                    <img src={item.thumbnail} alt="" width={"60px"} />
+                  </Link>
                 </td>
                 <td>{item.userName}</td>
                 <td>
-                  <h2>{item.title}</h2>
+                  <h2> {item.tilte}</h2>
                   <div>
-                    <Stars stars={item.ratings}></Stars>
+                    <Stars stars={item.ratings} />{" "}
                   </div>
-                  <div
-                    className={
-                      item.status === "active" ? "text-success" : "text-danger"
-                    }
-                  >
-                    Status: {item.status}
-                  </div>
+                  <div>{item.message}</div>
                 </td>
                 <td>
-                  <Link to={"/admin/book/edit/" + item._id}>
-                    <Button variant="warning">Edit</Button>
-                  </Link>
+                  <Button variant="danger">Delete</Button>
                 </td>
               </tr>
             ))}
@@ -89,3 +86,5 @@ export const Reviews = () => {
     </UserLayout>
   );
 };
+
+export default Reviews;

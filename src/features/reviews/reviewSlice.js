@@ -1,25 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateReviewAction } from "./reviewAxios";
 
 const initialState = {
   pubReviews: [],
-  allReviews: {},
+  allReviews: [],
 };
 
 const reviewslice = createSlice({
   name: "review",
   initialState,
   reducers: {
-    setpubReviews: (state, { payload }) => {
+    setPubReviews: (state, { payload }) => {
       state.pubReviews = payload || [];
     },
     setAllReview: (state, { payload }) => {
       state.allReviews = payload;
     },
-    updateReviewStatus: (state, { payload }) => {
+    updateReveiwStatus: (state, { payload }) => {
       const { _id, status } = payload;
       state.allReviews = state.allReviews.map((item) => {
-        return { ...item, status };
+        if (item._id === _id) {
+          return { ...item, status };
+        }
+        return item;
       });
     },
   },
@@ -27,5 +29,5 @@ const reviewslice = createSlice({
 
 const { reducer, actions } = reviewslice;
 
-export const { setpubReviews, setAllReview } = actions;
+export const { setPubReviews, setAllReview, updateReveiwStatus } = actions;
 export default reducer;

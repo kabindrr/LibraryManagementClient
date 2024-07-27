@@ -42,12 +42,11 @@ const BookLanding = () => {
       );
     }
   };
-  //reviews only for this book
 
+  // reviews only for this book
   const bookReviews = pubReviews.filter((item) => item.bookId === _id);
-  console.log(bookReviews);
 
-  const averageRatings = bookReviews.length
+  const avgRatings = bookReviews.length
     ? bookReviews.reduce((acc, item) => acc + item.ratings, 0) /
       bookReviews.length
     : 0;
@@ -65,11 +64,8 @@ const BookLanding = () => {
           <p>
             {author} - {publishedYear}
           </p>
-
-          <Stars stars={averageRatings} totalReviews={bookReviews.length} />
-
+          <Stars stars={avgRatings} totalReviews={bookReviews.length} />
           <p className="mt-5">{description.slice(0, 130)}...</p>
-
           <div className="d-grid">
             {user?._id ? (
               <Button disabled={!isAvailable} onClick={handleOnBookBurrow}>
@@ -106,7 +102,7 @@ const BookLanding = () => {
             </Tab>
 
             <Tab eventKey="reviews" title="Reviews">
-              <ReviewBlock />
+              <ReviewBlock pubReviews={pubReviews} />
             </Tab>
           </Tabs>
 

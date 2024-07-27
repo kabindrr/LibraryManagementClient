@@ -8,7 +8,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { IoLibrary } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
-import { MdReviews } from "react-icons/md";
+import { TbStarsFilled } from "react-icons/tb";
 
 const sideLinks = [
   {
@@ -30,7 +30,7 @@ const sideLinks = [
     isAdminOnly: true,
   },
   {
-    icon: <MdReviews />,
+    icon: <TbStarsFilled />,
     title: "All Reviews",
     to: "/admin/reviews",
     isAdminOnly: true,
@@ -44,12 +44,6 @@ const sideLinks = [
     icon: <CgProfile />,
     title: "Profile",
     to: "/profile",
-  },
-  {
-    icon: <RiAdminFill />,
-    title: "Admins",
-    to: "/admin/admins",
-    isAdminOnly: true,
   },
 ];
 
